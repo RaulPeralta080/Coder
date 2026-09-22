@@ -1,25 +1,9 @@
--- ============================================================
--- Motor utilizado: PostgreSQL (pgAdmin 4)
--- Checkpoint: Script SQL de Ingeniería de Datos
--- Proyecto: TechStore — Modelo relacional de ventas
--- Autor: Raúl Gerardo Peralta
--- Institución: Coderhouse
--- ============================================================
 
--- ============================================================
--- === SECCIÓN 1: DROP ===
--- Se eliminan las tablas en orden inverso a las dependencias
--- para no violar las restricciones de foreign keys.
--- ============================================================
 DROP TABLE IF EXISTS ventas;
 DROP TABLE IF EXISTS productos;
 DROP TABLE IF EXISTS clientes;
 DROP TABLE IF EXISTS categorias;
 
--- ============================================================
--- === SECCIÓN 2: CREATE ===
--- Creación de tablas de dimensión primero y tabla de hechos al final.
--- ============================================================
 
 -- Tabla categorias: dimensión, sin dependencias
 CREATE TABLE categorias (
@@ -57,10 +41,7 @@ CREATE TABLE ventas (
     fecha_venta      DATE            NOT NULL
 );
 
--- ============================================================
--- === SECCIÓN 3: INSERT ===
--- Carga de los 25 registros respetando el orden lógico.
--- ============================================================
+
 
 -- categorias — 4 registros
 INSERT INTO categorias (id_categoria, nombre_categoria, descripcion) VALUES
@@ -99,10 +80,6 @@ INSERT INTO ventas (id_venta, id_cliente, id_producto, cantidad, precio_unitario
   ( 9, 4, 4, 1,  120.00, '2024-03-14'),
   (10, 5, 3, 2,  450.00, '2024-03-15');
 
--- ============================================================
--- === SECCIÓN 4: VALIDACIÓN ===
--- Verificación de la carga de datos.
--- ============================================================
 SELECT * FROM categorias;   -- esperado: 4 filas
 SELECT * FROM clientes;     -- esperado: 5 filas
 SELECT * FROM productos;    -- esperado: 6 filas
